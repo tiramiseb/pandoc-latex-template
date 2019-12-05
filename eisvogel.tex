@@ -336,6 +336,8 @@ $highlighting-macros$
 
 $endif$
 \usepackage{longtable,booktabs}
+\setlength\LTleft{0pt}
+\setlength\LTright{0pt}
 $if(beamer)$
 \usepackage{caption}
 % Make caption package work with longtable
@@ -959,7 +961,7 @@ $if(revisions)$
 
 \subsection*{$if(i18n-revisions)$$i18n-revisions$$else$Revisions$endif$}
 
-\begin{longtable}[]{@{}llll@{}}
+\begin{longtable}[]{@{\extracolsep{\fill}}llll@{\extracolsep{\fill}}}
 \toprule
 $if(i18n-rev)$$i18n-rev$$else$Rev.$endif$ &
 $if(i18n-date)$$i18n-date$$else$Date$endif$ &
@@ -980,7 +982,7 @@ $endfor$
 
 \subsection*{$if(i18n-validations)$$i18n-validations$$else$Validations$endif$}
 
-\begin{longtable}[]{@{}lll@{}}
+\begin{longtable}[]{@{\extracolsep{\fill}}lll@{}}
 \toprule
 $if(i18n-rev)$$i18n-rev$$else$Rev.$endif$ &
 $if(i18n-date)$$i18n-date$$else$Date$endif$ &
