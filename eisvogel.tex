@@ -302,14 +302,15 @@ $endif$
 $endif$
 \usepackage[export]{adjustbox}
 \usepackage{graphicx}
-$if(framed-graphics)$
 % Framed graphics
-\let\oldIncludegraphics\includegraphics
+\let\framelessIncludegraphics\includegraphics
+$if(framed-graphics)$
+\let\framelessIncludegraphics\includegraphics
 $if(frame-color)$
 \definecolor{frame-color}{HTML}{$frame-color$}
-\renewcommand{\includegraphics}[2][]{\oldIncludegraphics[#1,cfbox=frame-color]{#2}}
+\renewcommand{\includegraphics}[2][]{\framelessIncludegraphics[#1,cfbox=frame-color]{#2}}
 $else$
-\renewcommand{\includegraphics}[2][]{\oldIncludegraphics[#1,fbox]{#2}}
+\renewcommand{\includegraphics}[2][]{\framelessIncludegraphics[#1,fbox]{#2}}
 $endif$
 $endif$
 $if(beamer)$
@@ -840,10 +841,10 @@ $else$
   \lhead[$if(header-right)$$header-right$$else$\lastdate$if(revisions)$~-~$if(i18n-rev)$$i18n-rev$$else$Rev.$endif$~\lastrev$endif$$endif$]{$if(header-left)$$header-left$$else$$if(subject)$$subject$~-~$endif$$title$$endif$}
   \chead[$if(header-center)$$header-center$$else$$endif$]{$if(header-center)$$header-center$$else$$endif$}
   \rhead[$if(header-left)$$header-left$$else$$if(subject)$$subject$~-~$endif$$title$$endif$]{$if(header-right)$$header-right$$else$$if(revisions)$$if(i18n-rev)$$i18n-rev$$else$Rev.$endif$~\lastrev~-~$endif$\lastdate$endif$}
-  \lfoot[$if(footer-right)$$footer-right$$else$$if(i18n-page)$$i18n-page$$else$Page$endif$~\thepage~$if(i18n-of)$$i18n-of$$else$of$endif$~\pageref*{LastPage}$endif$]{$if(footer-left)$$footer-left$$else$$if(footer-logo)$\raisebox{-0.5\baselineskip}{\includegraphics[height=1.5em]{$footer-logo$}}$else$$for(author)$$author$$sep$, $endfor$$endif$$endif$}
+  \lfoot[$if(footer-right)$$footer-right$$else$$if(i18n-page)$$i18n-page$$else$Page$endif$~\thepage~$if(i18n-of)$$i18n-of$$else$of$endif$~\pageref*{LastPage}$endif$]{$if(footer-left)$$footer-left$$else$$if(footer-logo)$\raisebox{-0.5\baselineskip}{\framelessIncludegraphics[height=1.5em]{$footer-logo$}}$else$$for(author)$$author$$sep$, $endfor$$endif$$endif$}
   \cfoot[$if(footer-center)$$footer-center$$else$$endif$]{$if(footer-center)$$footer-center$$else$$endif$}
   % I don't know why, I can't put "\includegraphics" in "[]"
-  \fancyfoot[RE]{$if(footer-left)$$footer-left$$else$$if(footer-logo)$\raisebox{-0.5\baselineskip}{\includegraphics[height=1.5em]{$footer-logo$}}$else$$for(author)$$author$$sep$, $endfor$$endif$$endif$}
+  \fancyfoot[RE]{$if(footer-left)$$footer-left$$else$$if(footer-logo)$\raisebox{-0.5\baselineskip}{\framelessIncludegraphics[height=1.5em]{$footer-logo$}}$else$$for(author)$$author$$sep$, $endfor$$endif$$endif$}
   \fancyfoot[RO]{$if(footer-right)$$footer-right$$else$$if(i18n-page)$$i18n-page$$else$Page$endif$~\thepage~$if(i18n-of)$$i18n-of$$else$of$endif$~\pageref*{LastPage}$endif$}
   \renewcommand{\headrulewidth}{0.4pt}
   \renewcommand{\footrulewidth}{0.4pt}
