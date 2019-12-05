@@ -76,6 +76,11 @@ $for(classoption)$
 $endfor$
 ,tablecaptionabove
 ]{$if(beamer)$$documentclass$$else$$if(book)$scrbook$else$scrartcl$endif$$endif$}
+$if(split-sections)$
+\usepackage{titlesec}
+\newcommand{\sectionbreak}{\clearpage}
+$endif$
+\usepackage{lastpage}
 $if(beamer)$
 $if(background-image)$
 \usebackgroundtemplate{%
@@ -283,7 +288,7 @@ $else$
   hidelinks,
 $endif$
   breaklinks=true,
-  pdfcreator={LaTeX via pandoc with the Eisvogel template}}
+  pdfcreator={LaTeX via pandoc with the Alcyon template based on Eisvogel}}
 \urlstyle{same} % disable monospaced font for URLs
 $if(verbatim-in-note)$
 \VerbatimFootnotes % allow verbatim text in footnotes
@@ -330,7 +335,6 @@ $highlighting-macros$
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,fontsize=$if(code-block-font-size)$$code-block-font-size$$else$\small$endif$,commandchars=\\\{\}}
 
 $endif$
-$if(tables)$
 \usepackage{longtable,booktabs}
 $if(beamer)$
 \usepackage{caption}
@@ -347,7 +351,6 @@ $else$
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
-$endif$
 $endif$
 % add backlinks to footnote references, cf. https://tex.stackexchange.com/questions/302266/make-footnote-clickable-both-ways
 $if(footnotes-disable-backlinks)$
@@ -478,7 +481,18 @@ $endif$
 $if(author)$
 \author{$for(author)$$author$$sep$ \and $endfor$}
 $endif$
-\date{$date$}
+%% Date from last revision, and store last revision number
+\newcommand{\lastrev}{0}
+$if(date)$
+\newcommand{\lastdate}{$date$}
+$else$
+\newcommand{\lastdate}{\today}
+$endif$
+$for(revisions)$
+\renewcommand{\lastdate}{$revisions.date$}
+\renewcommand{\lastrev}{$revisions.rev$}
+$endfor$
+\date{\lastdate}
 $if(beamer)$
 $if(institute)$
 \institute{$for(institute)$$institute$$sep$ \and $endfor$}
@@ -813,12 +827,14 @@ $else$
 \fancypagestyle{eisvogel-header-footer}{
   \fancyhead{}
   \fancyfoot{}
-  \lhead[$if(header-right)$$header-right$$else$$date$$endif$]{$if(header-left)$$header-left$$else$$title$$endif$}
+  \lhead[$if(header-right)$$header-right$$else$\lastdate$if(revisions)$~-~$if(i18n-rev)$$i18n-rev$$else$Rev.$endif$~\lastrev$endif$$endif$]{$if(header-left)$$header-left$$else$$if(subject)$$subject$~-~$endif$$title$$endif$}
   \chead[$if(header-center)$$header-center$$else$$endif$]{$if(header-center)$$header-center$$else$$endif$}
-  \rhead[$if(header-left)$$header-left$$else$$title$$endif$]{$if(header-right)$$header-right$$else$$date$$endif$}
-  \lfoot[$if(footer-right)$$footer-right$$else$\thepage$endif$]{$if(footer-left)$$footer-left$$else$$for(author)$$author$$sep$, $endfor$$endif$}
+  \rhead[$if(header-left)$$header-left$$else$$if(subject)$$subject$~-~$endif$$title$$endif$]{$if(header-right)$$header-right$$else$$if(revisions)$$if(i18n-rev)$$i18n-rev$$else$Rev.$endif$~\lastrev~-~$endif$\lastdate$endif$}
+  \lfoot[$if(footer-right)$$footer-right$$else$$if(i18n-page)$$i18n-page$$else$Page$endif$~\thepage~$if(i18n-of)$$i18n-of$$else$of$endif$~\pageref*{LastPage}$endif$]{$if(footer-left)$$footer-left$$else$$if(footer-logo)$\raisebox{-0.5\baselineskip}{\includegraphics[height=1.5em]{$footer-logo$}}$else$$for(author)$$author$$sep$, $endfor$$endif$$endif$}
   \cfoot[$if(footer-center)$$footer-center$$else$$endif$]{$if(footer-center)$$footer-center$$else$$endif$}
-  \rfoot[$if(footer-left)$$footer-left$$else$$for(author)$$author$$sep$, $endfor$$endif$]{$if(footer-right)$$footer-right$$else$\thepage$endif$}
+  % I don't know why, I can't put "\includegraphics" in "[]"
+  \fancyfoot[RE]{$if(footer-left)$$footer-left$$else$$if(footer-logo)$\raisebox{-0.5\baselineskip}{\includegraphics[height=1.5em]{$footer-logo$}}$else$$for(author)$$author$$sep$, $endfor$$endif$$endif$}
+  \fancyfoot[RO]{$if(footer-right)$$footer-right$$else$$if(i18n-page)$$i18n-page$$else$Page$endif$~\thepage~$if(i18n-of)$$i18n-of$$else$of$endif$~\pageref*{LastPage}$endif$}
   \renewcommand{\headrulewidth}{0.4pt}
   \renewcommand{\footrulewidth}{0.4pt}
 }
@@ -866,26 +882,34 @@ $if(titlepage-background)$
   \setstretch{2}
   \vfill
   \vskip -8em
+  $if(subject)$
+  \noindent {\LARGE \textbf{\textsf{$subject$}}}
+  \vskip 0.5em
+  $endif$
   \noindent {\huge \textbf{\textsf{$title$}}}
   $if(subtitle)$
   \vskip 1em
   {\Large \textsf{$subtitle$}}
   $endif$
-  \vskip 2em
-  \noindent {\Large \textsf{$for(author)$$author$$sep$, $endfor$} \vskip 0.6em \textsf{$date$}}
   \vfill
 }
 $else$
 {
   \setstretch{1.4}
   \vfill
+  $if(subject)$
+  \noindent {\LARGE \textbf{\textsf{$subject$}}}
+  \vskip 0.5em
+  $endif$
   \noindent {\huge \textbf{\textsf{$title$}}}
   $if(subtitle)$
   \vskip 1em
   {\Large \textsf{$subtitle$}}
   $endif$
+  $if(revisions)$
   \vskip 2em
-  \noindent {\Large \textsf{$for(author)$$author$$sep$, $endfor$}}
+  \noindent {\large \textsf{\lastdate\\$if(revisions)$$if(i18n-revision)$$i18n-revision$$else$Revision$endif$~\lastrev$endif$}}
+  $endif$
   \vfill
 }
 $endif$
@@ -895,10 +919,6 @@ $if(logo)$
 \includegraphics[width=$if(logo-width)$$logo-width$$else$100$endif$pt, left]{$logo$}
 $endif$
 
-$if(titlepage-background)$
-$else$
-\textsf{$date$}
-$endif$
 \end{flushleft}
 \end{titlepage}
 \restoregeometry
@@ -932,6 +952,58 @@ $for(include-before)$
 $include-before$
 
 $endfor$
+$if(revisions)$
+%%
+%% Tables of revisions and validations
+%%
+
+\subsection*{$if(i18n-revisions)$$i18n-revisions$$else$Revisions$endif$}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+$if(i18n-rev)$$i18n-rev$$else$Rev.$endif$ &
+$if(i18n-date)$$i18n-date$$else$Date$endif$ &
+$if(i18n-object)$$i18n-object$$else$Object$endif$ &
+$if(i18n-author)$$i18n-author$$else$Author$endif$
+\tabularnewline
+\midrule
+\endhead
+$for(revisions)$
+$revisions.rev$ &
+$revisions.date$ &
+$revisions.object$ &
+$revisions.author$
+\tabularnewline
+$endfor$
+\bottomrule
+\end{longtable}
+
+\subsection*{$if(i18n-validations)$$i18n-validations$$else$Validations$endif$}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+$if(i18n-rev)$$i18n-rev$$else$Rev.$endif$ &
+$if(i18n-date)$$i18n-date$$else$Date$endif$ &
+$if(i18n-validator)$$i18n-validator$$else$Validator$endif$
+\tabularnewline
+\midrule
+\endhead
+$for(revisions)$
+$for(revisions.validation)$
+$revisions.rev$ &
+$revisions.validation.date$ &
+$revisions.validation.author$
+\tabularnewline
+$endfor$
+$endfor$
+\bottomrule
+\end{longtable}
+
+%%
+%% End tables of revisions and validations
+%%
+\newpage
+$endif$
 $if(toc)$
 $if(toc-title)$
 \renewcommand*\contentsname{$toc-title$}
