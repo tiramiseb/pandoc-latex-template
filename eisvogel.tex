@@ -300,9 +300,17 @@ $else$
 \usepackage[margin=2.5cm,includehead=true,includefoot=true,centering,$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
 $endif$
 $endif$
-$if(logo)$
 \usepackage[export]{adjustbox}
 \usepackage{graphicx}
+$if(framed-graphics)$
+% Framed graphics
+\let\oldIncludegraphics\includegraphics
+$if(frame-color)$
+\definecolor{frame-color}{HTML}{$frame-color$}
+\renewcommand{\includegraphics}[2][]{\oldIncludegraphics[#1,cfbox=frame-color]{#2}}
+$else$
+\renewcommand{\includegraphics}[2][]{\oldIncludegraphics[#1,fbox]{#2}}
+$endif$
 $endif$
 $if(beamer)$
 \newif\ifbibliography
