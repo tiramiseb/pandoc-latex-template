@@ -826,6 +826,27 @@ $endif$
 }
 $endif$
 
+%% Translations strings for additional stuff by tiramiseb
+\newcommand{\txtRevision}{Revision}
+\newcommand{\txtRevisions}{Revisions}
+\newcommand{\txtValidations}{Validations}
+\newcommand{\txtRev}{Rev.}
+\newcommand{\txtDate}{Date}
+\newcommand{\txtObject}{Object}
+\newcommand{\txtAuthor}{Author}
+\newcommand{\txtValidator}{Validator}
+\newcommand{\txtPage}{Page}
+\newcommand{\txtof}{of}
+\iflanguage{french}{
+  \renewcommand{\txtRevision}{Révision}
+  \renewcommand{\txtRevisions}{Révisions}
+  \renewcommand{\txtRev}{Rév.}
+  \renewcommand{\txtObject}{Objet}
+  \renewcommand{\txtAuthor}{Auteur}
+  \renewcommand{\txtValidator}{Validateur}
+  \renewcommand{\txtof}{sur}
+}
+
 %
 % header and footer
 %
@@ -838,14 +859,14 @@ $else$
 \fancypagestyle{eisvogel-header-footer}{
   \fancyhead{}
   \fancyfoot{}
-  \lhead[$if(header-right)$$header-right$$else$\lastdate$if(revisions)$~-~$if(i18n-rev)$$i18n-rev$$else$Rev.$endif$~\lastrev$endif$$endif$]{$if(header-left)$$header-left$$else$$if(subject)$$subject$~-~$endif$$title$$endif$}
+  \lhead[$if(header-right)$$header-right$$else$\lastdate$if(revisions)$~-~\txtRev~\lastrev$endif$$endif$]{$if(header-left)$$header-left$$else$$if(subject)$$subject$~-~$endif$$title$$endif$}
   \chead[$if(header-center)$$header-center$$else$$endif$]{$if(header-center)$$header-center$$else$$endif$}
-  \rhead[$if(header-left)$$header-left$$else$$if(subject)$$subject$~-~$endif$$title$$endif$]{$if(header-right)$$header-right$$else$$if(revisions)$$if(i18n-rev)$$i18n-rev$$else$Rev.$endif$~\lastrev~-~$endif$\lastdate$endif$}
-  \lfoot[$if(footer-right)$$footer-right$$else$$if(i18n-page)$$i18n-page$$else$Page$endif$~\thepage~$if(i18n-of)$$i18n-of$$else$of$endif$~\pageref*{LastPage}$endif$]{$if(footer-left)$$footer-left$$else$$if(footer-logo)$\raisebox{-0.5\baselineskip}{\framelessIncludegraphics[height=1.5em]{$footer-logo$}}$else$$for(author)$$author$$sep$, $endfor$$endif$$endif$}
+  \rhead[$if(header-left)$$header-left$$else$$if(subject)$$subject$~-~$endif$$title$$endif$]{$if(header-right)$$header-right$$else$$if(revisions)$\txtRev~\lastrev~-~$endif$\lastdate$endif$}
+  \lfoot[$if(footer-right)$$footer-right$$else$\txtPage~\thepage~\txtof~\pageref*{LastPage}$endif$]{$if(footer-left)$$footer-left$$else$$if(footer-logo)$\raisebox{-0.5\baselineskip}{\framelessIncludegraphics[height=1.5em]{$footer-logo$}}$else$$for(author)$$author$$sep$, $endfor$$endif$$endif$}
   \cfoot[$if(footer-center)$$footer-center$$else$$endif$]{$if(footer-center)$$footer-center$$else$$endif$}
   % I don't know why, I can't put "\includegraphics" in "[]"
   \fancyfoot[RE]{$if(footer-left)$$footer-left$$else$$if(footer-logo)$\raisebox{-0.5\baselineskip}{\framelessIncludegraphics[height=1.5em]{$footer-logo$}}$else$$for(author)$$author$$sep$, $endfor$$endif$$endif$}
-  \fancyfoot[RO]{$if(footer-right)$$footer-right$$else$$if(i18n-page)$$i18n-page$$else$Page$endif$~\thepage~$if(i18n-of)$$i18n-of$$else$of$endif$~\pageref*{LastPage}$endif$}
+  \fancyfoot[RO]{$if(footer-right)$$footer-right$$else$\txtPage~\thepage~\txtof~\pageref*{LastPage}$endif$}
   \renewcommand{\headrulewidth}{0.4pt}
   \renewcommand{\footrulewidth}{0.4pt}
 }
@@ -919,7 +940,7 @@ $else$
   $endif$
   $if(revisions)$
   \vskip 2em
-  \noindent {\large \textsf{\lastdate\\$if(revisions)$$if(i18n-revision)$$i18n-revision$$else$Revision$endif$~\lastrev$endif$}}
+  \noindent {\large \textsf{\lastdate\\$if(revisions)$\txtRevision~\lastrev$endif$}}
   $endif$
   \vfill
 }
@@ -968,14 +989,14 @@ $if(revisions)$
 %% Tables of revisions and validations
 %%
 
-\subsection*{$if(i18n-revisions)$$i18n-revisions$$else$Revisions$endif$}
+\subsection*{\txtRevisions}
 
 \begin{longtable}[]{@{\extracolsep{\fill}}llll@{\extracolsep{\fill}}}
 \toprule
-$if(i18n-rev)$$i18n-rev$$else$Rev.$endif$ &
-$if(i18n-date)$$i18n-date$$else$Date$endif$ &
-$if(i18n-object)$$i18n-object$$else$Object$endif$ &
-$if(i18n-author)$$i18n-author$$else$Author$endif$
+\txtRev &
+\txtDate &
+\txtObject &
+\txtAuthor
 \tabularnewline
 \midrule
 \endhead
@@ -989,13 +1010,13 @@ $endfor$
 \bottomrule
 \end{longtable}
 
-\subsection*{$if(i18n-validations)$$i18n-validations$$else$Validations$endif$}
+\subsection*{\txtValidations}
 
 \begin{longtable}[]{@{\extracolsep{\fill}}lll@{}}
 \toprule
-$if(i18n-rev)$$i18n-rev$$else$Rev.$endif$ &
-$if(i18n-date)$$i18n-date$$else$Date$endif$ &
-$if(i18n-validator)$$i18n-validator$$else$Validator$endif$
+\txtRev &
+\txtDate &
+\txtValidator
 \tabularnewline
 \midrule
 \endhead

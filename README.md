@@ -14,7 +14,7 @@ Revisions and validations tables are added in an independent page before the tab
 
 These tables are based on the `revisions` value in the metadata.
 
-See the following example for the YAML metadata:
+See the following example for the YAML front matter:
 
 ```yaml
 revisions:
