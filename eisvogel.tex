@@ -835,6 +835,7 @@ $endif$
 \newcommand{\txtObject}{Object}
 \newcommand{\txtAuthor}{Author}
 \newcommand{\txtValidator}{Validator}
+\newcommand{\txtComment}{Comment}
 \newcommand{\txtPage}{Page}
 \newcommand{\txtof}{of}
 \iflanguage{french}{
@@ -844,6 +845,7 @@ $endif$
   \renewcommand{\txtObject}{Objet}
   \renewcommand{\txtAuthor}{Auteur}
   \renewcommand{\txtValidator}{Validateur}
+  \renewcommand{\txtComment}{Commentaire}
   \renewcommand{\txtof}{sur}
 }
 
@@ -1016,7 +1018,8 @@ $endfor$
 \toprule
 \txtRev &
 \txtDate &
-\txtValidator
+\txtValidator &
+\txtComment
 \tabularnewline
 \midrule
 \endhead
@@ -1024,7 +1027,8 @@ $for(revisions)$
 $for(revisions.validation)$
 $revisions.rev$ &
 $revisions.validation.date$ &
-$revisions.validation.author$
+$revisions.validation.author$ &
+$revisions.validation.comment$
 \tabularnewline
 $endfor$
 $endfor$

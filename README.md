@@ -31,6 +31,7 @@ revisions:
     author: Jane Smith
   - date: July, 5th, 2019
     author: Ali Gator
+    comment: Nice work!
 - rev: 5
   date: September 24th, 2019
   author: Kim Bergman
@@ -47,10 +48,10 @@ Rev. | Date | Object | Author
 
 ... and the following validations table:
 
-Rev. | Date | Validator
--|-|-
-4 | July, 4th, 2019 | Jane Smith
-4 | July, 5th, 2019 | Ali Gator
+Rev. | Date | Validator | Comment
+-|-|-|-
+4 | July, 4th, 2019 | Jane Smith |
+4 | July, 5th, 2019 | Ali Gator | Nice work!
 
 ### Title page
 
@@ -73,20 +74,7 @@ Rev. | Date | Validator
 
 ### Internationalization
 
-In my additions, texts are in english. However, I write documents in french. Thus, I have declared some translations variables, prefixed by `i18n-`:
-
-Variable|Default value|Where it is used
--|-|-
-`i18n-revision`|"Revision"|on the title page
-`i18n-revisions`|"Revisions"|on the revisions tables page
-`i18n-validations`|"Validations"|on the revisions tables page
-`i18n-rev`|"Rev."|on the revisions tables page and in the header
-`i18n-date`|"Date"|on the revisions tables page
-`i18n-object`|"Object"|on the revisions tables page
-`i18n-author`|"Author"|on the revisions tables page
-`i18n-validator`|"Validator"|on the revisions tables page
-`i18n-page`|"Page"|in the footer
-`i18n-of`|"of"|in the footer
+Translations are directly embedded in the `eisvogel.tex` file. Currently, only english and french versions exist.
 
 ## Credits
 
