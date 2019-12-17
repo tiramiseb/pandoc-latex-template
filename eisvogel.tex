@@ -509,10 +509,10 @@ $if(institute)$
 \institute{$for(institute)$$institute$$sep$ \and $endfor$}
 $endif$
 $if(titlegraphic)$
-\titlegraphic{\includegraphics{$titlegraphic$}}
+\titlegraphic{\framelessIncludegraphics{$titlegraphic$}}
 $endif$
 $if(logo)$
-\logo{\includegraphics{$logo$}}
+\logo{\framelessIncludegraphics{$logo$}}
 $endif$
 $endif$
 
@@ -950,7 +950,7 @@ $endif$
 
 $if(logo)$
 \noindent
-\includegraphics[width=$if(logo-width)$$logo-width$$else$100$endif$pt, left]{$logo$}
+\framelessIncludegraphics[width=$if(logo-width)$$logo-width$$else$100$endif$pt, left]{$logo$}
 $endif$
 
 \end{flushleft}
