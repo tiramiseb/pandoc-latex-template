@@ -71,6 +71,7 @@ Rev. | Date | Validator | Comment
 * The `split-section` variable allows splitting every section on a new page.
 * The `framed-graphics` variable adds a frame around the figures.
 * The `frame-color` variable sets the graphics frame color, in html format (`ffffff`). Useless if `framed-graphics` is not enabled.
+* The `draft` variable enables (localized) "DRAFT" watermarks on all pages
 
 ### Internationalization
 
@@ -78,8 +79,8 @@ Translations are directly embedded in the `eisvogel.tex` file. Currently, only e
 
 ## Credits
 
-  - This template is heavily based on [pandoc-latex-template](https://github.com/Wandmalfarbe/pandoc-latex-template) by [Pascal Wagler](https://github.com/Wandmalfarbe).
-  - This template includes code for styling block quotations from [pandoc-letter](https://github.com/aaronwolen/pandoc-letter) by [Aaron Wolen](https://github.com/aaronwolen).
+* This template is heavily based on [pandoc-latex-template](https://github.com/Wandmalfarbe/pandoc-latex-template) by [Pascal Wagler](https://github.com/Wandmalfarbe).
+* This template includes code for styling block quotations from [pandoc-letter](https://github.com/aaronwolen/pandoc-letter) by [Aaron Wolen](https://github.com/aaronwolen).
 
 ## License
 

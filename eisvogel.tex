@@ -838,6 +838,7 @@ $endif$
 \newcommand{\txtComment}{Comment}
 \newcommand{\txtPage}{Page}
 \newcommand{\txtof}{of}
+\newcommand{\txtDRAFT}{DRAFT}
 \iflanguage{french}{
   \renewcommand{\txtRevision}{Révision}
   \renewcommand{\txtRevisions}{Révisions}
@@ -847,6 +848,7 @@ $endif$
   \renewcommand{\txtValidator}{Validateur}
   \renewcommand{\txtComment}{Commentaire}
   \renewcommand{\txtof}{sur}
+  \renewcommand{\txtDRAFT}{BROUILLON}
 }
 
 %
@@ -874,6 +876,13 @@ $else$
 }
 \pagestyle{eisvogel-header-footer}
 $endif$
+$endif$
+
+%% Watermark
+$if(draft)$
+\usepackage{draftwatermark}
+\SetWatermarkText{\txtDRAFT}
+\SetWatermarkFontSize{4cm}
 $endif$
 
 %%
