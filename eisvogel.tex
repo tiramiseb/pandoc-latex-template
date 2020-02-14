@@ -851,6 +851,15 @@ $endif$
   \renewcommand{\txtDRAFT}{BROUILLON}
 }
 
+% Allow centering paragraph without space before and after
+\newenvironment{tightcenter}{
+  \setlength\topsep{0pt}
+  \setlength\parskip{0pt}
+  \begin{center}
+}{
+  \end{center}
+}
+
 %
 % header and footer
 %
