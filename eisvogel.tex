@@ -77,8 +77,8 @@ $endfor$
 ,tablecaptionabove
 ]{$if(beamer)$$documentclass$$else$$if(book)$scrbook$else$scrartcl$endif$$endif$}
 $if(split-sections)$
-\usepackage{titlesec}
-\newcommand{\sectionbreak}{\clearpage}
+\usepackage{sectsty}
+\sectionfont{\clearpage}
 $endif$
 \usepackage{lastpage}
 $if(beamer)$

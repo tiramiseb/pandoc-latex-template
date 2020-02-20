@@ -68,7 +68,7 @@ Rev. | Date | Validator | Comment
 
 ### Content
 
-* The `split-section` variable allows splitting every section on a new page.
+* The `split-sections` variable allows splitting every section on a new page.
 * The `framed-graphics` variable adds a frame around the figures.
 * The `frame-color` variable sets the graphics frame color, in html format (`ffffff`). Useless if `framed-graphics` is not enabled.
 * The `draft` variable enables (localized) "DRAFT" watermarks on all pages
